@@ -1,0 +1,1056 @@
+<!--火狮 H.S. 警告! 禁止搬运和复制该网站的任何代码。-->
+
+<!--H.S. Warning! It is prohibited to move and copy any code of this website.-->
+
+<!--火狮 H.S. 警告! 禁止搬运和复制该网站的任何代码。-->
+
+<!--H.S. Warning! It is prohibited to move and copy any code of this website.-->
+
+<!--火狮 H.S. 警告! 禁止搬运和复制该网站的任何代码。-->
+
+<!--H.S. Warning! It is prohibited to move and copy any code of this website.-->
+
+<!--火狮 H.S. 警告! 禁止搬运和复制该网站的任何代码。-->
+
+<!--H.S. Warning! It is prohibited to move and copy any code of this website.-->
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/huoshi111/huoshiyinyuelogo/main/huoshiyinyuelogo.png">
+    <title>火狮音乐</title>
+    <style>
+        body, html, a, button, input, select, textarea {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            cursor: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshishubiao2.github.io/main/huoshishubiao.png'), auto;
+        }
+
+        a, button, input, select, textarea, .music-button, label, #audio-controls button {
+            cursor: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshishubiao2.github.io/main/huoshishubiao.png'), auto !important;
+        }
+
+        a:hover, a:focus, button:hover, button:focus, input:hover, input:focus, select:hover, select:focus, textarea:hover, textarea:focus, .music-button:hover, .music-button:focus, label:hover, label:focus, #audio-controls button:hover, #audio-controls button:focus {
+            cursor: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshishubiao2.github.io/main/huoshishubiao.png'), auto !important;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/ZcCZ7KC/IMG-20240601-185646.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-color: black; 
+            z-index: -1;
+            animation: zoomEffect 50s infinite alternate;
+            transition: opacity 1s;
+            opacity: 1;
+            transition: all 1s ease; /* 平滑过渡效果 */
+        }
+
+        @keyframes zoomEffect {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1); 
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+         #music-buttons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 104px; /* 留出空白区域 */
+            z-index: 0;
+            padding: 20px;
+            overflow-y: scroll; /* 启用滚动 */
+            scrollbar-width: none; /* 隐藏Firefox滚动条 */
+            text-align: center;
+            transition: opacity 0.5s;
+        }
+
+         #music-buttons::-webkit-scrollbar {
+            display: none; /* 隐藏Chrome、Safari、Edge等浏览器的滚动条 */
+        }
+
+         #music-buttons::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+         #music-buttons::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .music-button {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            background-color: rgba(0, 0, 0, 0.704);
+            cursor: pointer;
+            color: #04d066d4;
+            border-radius: 5px
+        }
+
+        #audio-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #04d066d4;
+            padding: 18px;
+            text-align: center;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #audio-controls .control-group {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        #audio-controls button {
+            background-color: #0000005f;
+            border: none;
+            padding: 10px;
+            color: #04d066d4;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #audio-controls input[type="range"] {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .fixed-text {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            color: #008200;
+            margin: 5px; 
+        }
+
+        .hide-cursor {
+            cursor: none !important;
+        }
+
+        #background-options {
+            display: none;
+            position: absolute;
+            bottom: 60px; /* 高度 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 2;
+            max-height: 200px;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease; 
+            scrollbar-width: none; /* 对Firefox有效 */
+            width: 744px;
+        }
+
+        #background-options::-webkit-scrollbar {
+            width: 0; /* 对Chrome, Safari, 和Opera有效 */
+            display: none; /* 对最新版本的Chrome和Safari有效 */
+        }
+        .background-option {
+            display: inline-block;
+            width: 110px;
+            height: 110px;
+            margin: 5px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease; 
+        }
+
+        .background-option:hover {
+            transform: scale(1.1); 
+        }
+
+        .progress-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 26px;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            width: 70%;
+            height: 6px;
+            background-color: #0000009c;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #04d03e5a;
+            width: 0%;
+        }
+        #context-menu {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.4); /* 背景透明 */
+            color: #008200; /* 文字颜色为008200 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #context-menu.visible {
+            opacity: 1;
+        }
+
+        #context-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #context-menu ul li {
+            padding: 8px 30px;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+        }
+
+        #context-menu ul li:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* 鼠标悬停时深色背景 */
+        }
+
+        #now-playing-container {
+            position: relative;
+            width: 10%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.678);
+            border-radius: 6px;
+            padding: 8px;
+            color: #04d066d4;
+            font-size: 1em;
+        }
+
+        #now-playing {
+            white-space: nowrap;
+            animation: scrollText 10s linear infinite;
+        }
+
+        @keyframes scrollText {
+        0% {
+            transform: translateX(200%);
+        }
+        100% {
+            transform: translateX(-150%);
+             }
+        }
+
+        .shake {
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            animation: shake 30s infinite ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-0.5%, 0.5%); }
+            20% { transform: translate(-1%, -0.5%); }
+            30% { transform: translate(0.5%, -1%); }
+            40% { transform: translate(0.5%, 1%); }
+            50% { transform: translate(-0.5%, -0.5%); }
+            60% { transform: translate(-1%, 1%); }
+            70% { transform: translate(0.5%, 0.5%); }
+            80% { transform: translate(1%, -0.5%); }
+            90% { transform: translate(-0.5%, 1%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        #network-status {
+            display: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.534);
+            color: #008200;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        #video-options {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 2;
+            max-height: 200px;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            scrollbar-width: none;
+         }
+
+         #video-options::-webkit-scrollbar {
+            width: 0;
+            display: none;
+         }
+
+        .fixed-image {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            margin: 5px;
+            width: 50px; /* 调整图片宽度 */
+            height: auto; /* 保持宽高比 */
+            user-select: none; 
+            pointer-events: none; /* 禁用鼠标事件 */
+        }
+
+        #landscape-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #008200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            z-index: 9999;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        #landscape-alert h3 {
+            margin-top: 20px; 
+            font-size: 16px;  
+            color: #008200;
+        }
+
+    </style>
+</head>
+<body style="background-color: black;">
+
+<div class="background" id="background"></div>
+
+<div id="music-buttons">    
+    <div class="music-button" onclick="playMusic(0)">风之谷</div>
+    <div class="music-button" onclick="playMusic(1)">Collapsing World</div>
+    <div class="music-button" onclick="playMusic(2)">seredris - Daylight </div>
+    <div class="music-button" onclick="playMusic(3)">夜间巡航</div>
+    <div class="music-button" onclick="playMusic(4)">每当我</div>
+    <div class="music-button" onclick="playMusic(5)">幻昼</div>
+    <div class="music-button" onclick="playMusic(6)"> Tsuki's Forest Mixtape </div>
+    <div class="music-button" onclick="playMusic(7)"> 夏·烟火 </div>
+    <div class="music-button" onclick="playMusic(8)"> 夜、萤火虫和你 </div>
+    <div class="music-button" onclick="playMusic(9)"> Sources </div>
+    <div class="music-button" onclick="playMusic(10)"> Call Of Silence </div>
+    <div class="music-button" onclick="playMusic(11)"> 红马 </div>
+    <div class="music-button" onclick="playMusic(12)"> 安和桥 </div>
+    <div class="music-button" onclick="playMusic(13)"> Time Stop </div>
+    <div class="music-button" onclick="playMusic(14)"> 走下一个世界 </div>
+    <div class="music-button" onclick="playMusic(15)"> 牵丝戏 </div>
+    <div class="music-button" onclick="playMusic(16)"> 风驶过的声音是 </div>
+    <div class="music-button" onclick="playMusic(17)"> Apollos Triumph </div>
+    <div class="music-button" onclick="playMusic(18)"> Later Our Lover </div>
+    <div class="music-button" onclick="playMusic(19)"> Phone Kisses </div>
+    <div class="music-button" onclick="playMusic(20)"> 无人之地 </div>
+    <div class="music-button" onclick="playMusic(21)"> Snowfall </div>
+    <div class="music-button" onclick="playMusic(22)"> Way Back </div>
+    <div class="music-button" onclick="playMusic(23)"> 星月落 </div>
+    <div class="music-button" onclick="playMusic(24)"> 花在夏天落下 </div>
+    <div class="music-button" onclick="playMusic(25)"> 忆夏思乡 </div>
+    <div class="music-button" onclick="playMusic(26)"> 君不见 </div>
+    <div class="music-button" onclick="playMusic(27)"> Take Me Hand </div>
+    <div class="music-button" onclick="playMusic(28)"> Empty Love</div>
+    <div class="music-button" onclick="playMusic(29)"> Inspire </div>
+    <div class="music-button" onclick="playMusic(30)"> 我们 </div>
+    <div class="music-button" onclick="playMusic(31)"> 入戏太深 </div>
+</div>
+<div id="audio-controls">
+
+    <div id="now-playing-container">
+        <div id="now-playing">火狮音乐</div>
+    </div>
+    <div class="control-group"; style="background-color: rgba(0, 0, 0, 0.604); border-radius: 5px">
+        <button id="play-pause-button" onclick="togglePlayPause()">▶</button>
+        <span id="current-time">0:00</span> / <span id="duration">0:00 </span>
+         - 音量:
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="1" onchange="adjustVolume(this.value)">
+    </div>
+    <div class="control-group">
+        <label for="music-upload"; style="background-color: rgba(0, 0, 0, 0.45); border-radius: 5px; padding: 9px;" >+♪</label>
+        <input type="file" id="music-upload" accept=".mp3, .m4a" style="display: none;" onchange="handleFileUpload(this.files)">
+    </div>
+    <div class="control-group">
+        <button id="toggle-background-options" onclick="toggleBackgroundOptions()">背景</button>
+    </div>
+
+    <div class="control-group">
+        <button id="toggle-video-options" onclick="toggleVideoOptions()">动态背景</button>
+    </div>
+
+    <div class="control-group">
+        <button class="button" onclick="toggleEffect()">镜头动作</button>
+    </div>
+
+    <div class="control-group">
+        <button onclick="toggleFullscreen()">全屏 ⛶</button>
+    </div>
+
+    <p class="fixed-text">火狮音乐v5.0</p>
+    <img src="https://raw.githubusercontent.com/huoshi111/huoshiyinyuelogo/main/huoshiyinyuelogo.png" alt="logo" class="fixed-image">
+
+    <div class="progress-bar-container">
+    <div class="progress-bar" onclick="seek(event)">
+    <div class="progress" id="progress"></div>
+
+    </div>
+</div>
+</div>
+
+<div id="background-options">
+    <div class="background-option" style="background-image: url('https://i.ibb.co/ZcCZ7KC/IMG-20240601-185646.jpg');" onclick="changeBackground('https://i.ibb.co/ZcCZ7KC/IMG-20240601-185646.jpg')"></div>
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshiyinyuebizhi.github.io/blob/main/%E7%BA%AF%E9%9F%B3%E4%B9%90%E5%A3%81%E7%BA%B82.png?raw=true');" onclick="changeBackground('https://github.com/Xiaowameijiao/huoshiyinyuebizhi.github.io/blob/main/%E7%BA%AF%E9%9F%B3%E4%B9%90%E5%A3%81%E7%BA%B82.png?raw=true')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi1.github.io/main/chunyinyuebizhi.jpg');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi1.github.io/main/chunyinyuebizhi.jpg')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi4.github.io/main/huoshiyinyuebizhi4.webp');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi4.github.io/main/huoshiyinyuebizhi4.webp')"></div>
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshiyinyuebizhi5.github.io/blob/main/huoshiyinyuebizhi1.jpg?raw=true');" onclick="changeBackground('https://github.com/Xiaowameijiao/huoshiyinyuebizhi5.github.io/blob/main/huoshiyinyuebizhi1.jpg?raw=true')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi.github.io/main/%E7%BA%AF%E9%9F%B3%E4%B9%90%E5%A3%81%E7%BA%B8.jpeg');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi.github.io/main/%E7%BA%AF%E9%9F%B3%E4%B9%90%E5%A3%81%E7%BA%B8.jpeg')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi2.github.io/main/huoshibizhi.jpg');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi2.github.io/main/huoshibizhi.jpg')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi1.github.io/main/dongmanbizhi.png');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi1.github.io/main/dongmanbizhi.png')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi2.github.io/main/huoshibizhi1.png');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi2.github.io/main/huoshibizhi1.png')"></div>
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshiyinyuebizhi3.github.io/blob/main/huoshiyinyuebizhi2.png?raw=true');" onclick="changeBackground('https://github.com/Xiaowameijiao/huoshiyinyuebizhi3.github.io/blob/main/huoshiyinyuebizhi2.png?raw=true')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi4.github.io/main/huoshiyinyuebizhi5.webp');" onclick="changeBackground('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhi4.github.io/main/huoshiyinyuebizhi5.webp')"></div>
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/huoshi111/huoshiyinyuebizhi2/main/huoshiyinyuebizhi2.jpg');" onclick="changeBackground('https://raw.githubusercontent.com/huoshi111/huoshiyinyuebizhi2/main/huoshiyinyuebizhi2.jpg')"></div>
+    <div class="background-option" style="background-image: url('https://github.com/huoshi111/huoshibizhi/blob/main/huoshiyinyuebizhi02.jpg?raw=true');" onclick="changeBackground('https://github.com/huoshi111/huoshibizhi/blob/main/huoshiyinyuebizhi02.jpg?raw=true')"></div>
+    <div class="background-option" style="background-image: url('https://github.com/huoshi111/huoshiyinyuebizhi4/blob/main/dgctdnb-65456fe0-72db-41c6-832a-5b1807d0d68c.png?raw=true');" onclick="changeBackground('https://github.com/huoshi111/huoshiyinyuebizhi4/blob/main/dgctdnb-65456fe0-72db-41c6-832a-5b1807d0d68c.png?raw=true')"></div>
+</div>
+
+<audio id="audio-player" src=""></audio>
+
+<div id="context-menu">
+  <ul>
+    <li id="menu-item-1">反馈或建议</li>
+  </ul>
+</div>
+
+<div id="video-options">
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshiyinyuebizhiyuanshen.github.io/main/Captura%20de%20pantalla%202024-08-01%20134021.png');" onclick="changeVideoBackground('https://xiaowameijiao.github.io/yuanshenkeli.github.io/yuanshenklee.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshidongtaibizhi3.github.io/blob/main/dongmanbizhi1.png?raw=true');" onclick="changeVideoBackground('https://xiaowameijiao.github.io/huoshidongtaibizhi2.github.io/dongmanbizhi2.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshidongtaibizhitu.github.io/blob/main/Captura%20de%20pantalla%202024-08-01%20141315.png?raw=true');" onclick="changeVideoBackground('https://xiaowameijiao.github.io/huoshidongtaibizhi.github.io/dongmanbizhi.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshidongtaibizhitu.github.io/blob/main/Captura%20de%20pantalla%202024-08-01%20141623.png?raw=true');" onclick="changeVideoBackground('https://xiaowameijiao.github.io/huoshidongtaibizhi1.github.io/forest%20anime%20wallpaper.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://github.com/Xiaowameijiao/huoshidongtaibizhitu1.github.io/blob/main/Elainewallpaper.png?raw=true');" onclick="changeVideoBackground('https://xiaowameijiao.github.io/huoshidongtaibizhielaina.github.io/ElainaWallpaperbizhi.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/Xiaowameijiao/huoshidongtaibizhitu2.github.io/main/huoshidongtaibizhitu.png');" onclick="changeVideoBackground('https://xiaowameijiao.github.io/huoshidongtaibizhi5.github.io/dongmanfengjingbizhi.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://github.com/huoshi111/huoshiyinyuebizhikeli/blob/main/Captura%20de%20pantalla%202024-10-07%20123653.png?raw=true');" onclick="changeVideoBackground('https://huoshi111.github.io/huoshiyinyuebizhi3/lv_0_20241006213222.mp4')"></div>
+
+    <div class="background-option" style="background-image: url('https://raw.githubusercontent.com/huoshi111/huoshiyuanshenbizhitu/refs/heads/main/yuanshenbizhi1.png');" onclick="changeVideoBackground('https://huoshi111.github.io/huoshiyuanshenbizhi/yuanshenHuTao.mp4')"></div>
+
+</div>
+
+<video id="video-background" loop muted style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;"></video>
+
+
+    <div id="network-status">
+        当前未检测到网络信号，请查看网络
+    </div>
+
+    <div id="landscape-alert" style="display: none;">
+        请将手机旋转为横屏模式并点击全屏按钮以获得最佳体验。
+        <h3> 推荐使用谷歌Chrome浏览器或Edge浏览器进入火狮音乐 </h3>
+    </div>
+
+<script>
+var audioPlayer = document.getElementById('audio-player');
+var musicButtons = document.getElementById('music-buttons');
+var audioControls = document.getElementById('audio-controls');
+var currentTimeSpan = document.getElementById('current-time');
+var durationSpan = document.getElementById('duration');
+var background = document.getElementById('background');
+var backgroundOptions = document.getElementById('background-options');
+var progressBar = document.getElementById('progress');
+var progressBarContainer = document.querySelector('.progress-bar');
+
+var inactivityTimeout;
+var playlist = [
+    'https://xiaowameijiao.github.io/huoshimusic1.github.io/%E7%BE%BD%E8%82%BF%20Windy%20Hill%20BGM.mp3',
+    'https://xiaowameijiao.github.io/huoshiyinyue9.github.io/Lightscape%20-%20Collapsing%20World.m4a',
+    'https://xiaowameijiao.github.io/huoshiyinyue8.github.io/seredris%20-%20Daylight.m4a',
+    'https://xiaowameijiao.github.io/music/NightCruising.m4a',
+    'https://xiaowameijiao.github.io/huoshiyinyue1.github.io/%E6%AF%8F%E5%BD%93%E6%88%91.mp3',
+    'https://xiaowameijiao.github.io/huoshiyinyue7.github.io/%E5%B9%BB%E6%98%BC.mp3',
+    'https://xiaowameijiao.github.io/huoshiyinyue2.github.io/TsukisForestMixtape.mp3',
+    'https://xiaowameijiao.github.io/huoshimusic2.github.io/%E5%A4%8F%C2%B7%E7%83%9F%E7%81%AB.m4a',
+    'https://xiaowameijiao.github.io/huoshiyinyue10.github.io/%E5%A4%9C%E3%80%81%E8%90%A4%E7%81%AB%E8%99%AB%E5%92%8C%E4%BD%A0.mp3',
+    'https://xiaowameijiao.github.io/huoshiyinyue11.github.io/Sources.m4a',
+    'https://xiaowameijiao.github.io/huoshiyinyue12.github.io/Call%20of%20Silence%20%E4%BC%B4%E5%A5%8F.m4a',
+    'https://huoshi111.github.io/huoshiyinyue/%E7%BA%A2%E9%A9%AC%20%E4%B8%80%E9%A2%97%E7%8B%BC%E6%98%9F%20%E4%BC%B4%E5%A5%8F.m4a',
+    'https://huoshi111.github.io/huoshiyinyue1/%E5%AE%89%E5%92%8C%E6%A1%A5.m4a',
+    'https://huoshi111.github.io/huoshiyinyue2/Time%20Stop.m4a',
+    'https://huoshi111.github.io/huoshiyinyue3/%E8%B5%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E4%B8%96%E7%95%8C.m4a',
+    'https://huoshi111.github.io/huoshiyinyue4/%E7%89%B5%E4%B8%9D%E6%88%8F%20%E4%BC%B4%E5%A5%8F.m4a',
+    'https://huoshi111.github.io/huoshiyinyue5/%E9%A3%8E%E9%A9%B6%E8%BF%87%E7%9A%84%E5%A3%B0%E9%9F%B3%E6%98%AF_instrumental.mp3',
+    'https://huoshi111.github.io/huoshiyinyue6/Audiomachine%20-%20Apollos%20Triumph.m4a',
+    'https://huoshi111.github.io/huoshiyinyue7/%E5%90%8E%E6%9D%A5%E6%88%91%E4%BB%AC%E7%9A%84%E7%88%B1.m4a',
+    'https://huoshi111.github.io/huoshiyinyue8/phone%20kisses%20%E4%BC%B4%E5%A5%8F.m4a',
+    'https://huoshi111.github.io/huoshiyinyue9/%E6%97%A0%E4%BA%BA%E4%B9%8B%E5%9C%B0.m4a',
+    'https://huoshi111.github.io/huoshiyinyue10/snowfall.m4a',
+    'https://huoshi111.github.io/huoshiyinyue11/Vicetone%20-%20Way%20Back_instrumental.mp3',
+    'https://huoshi111.github.io/huoshiyinyue12/%E6%98%9F%E6%9C%88%E8%90%BD.m4a',
+    'https://huoshi111.github.io/huoshiyinyue13/%E8%8A%B1%E5%9C%A8%E5%A4%8F%E5%A4%A9%E8%90%BD%E4%B8%8B.m4a',
+    'https://huoshi111.github.io/huoshiyinyue14/%E5%BF%86%E5%A4%8F%E6%80%9D%E4%B9%A1.m4a',
+    'https://huoshi111.github.io/huoshiyinyue15/%E5%90%9B%E4%B8%8D%E8%A7%81.m4a',
+    'https://huoshi111.github.io/huoshiyinyue16/Take%20Me%20Hand%20-%20Instrumental.m4a',
+    'https://huoshi111.github.io/huoshiyinyue17/Empty%20Love%20Instrumental.m4a',
+    'https://huoshi111.github.io/huoshiyinyue18/Inspire.m4a',
+    'https://huoshi111.github.io/huoshiyinyue19/%E6%88%91%E4%BB%AC%E4%BC%B4%E5%A5%8F.mp4',
+    'https://huoshi111.github.io/huoshiyinyue20/%E5%85%A5%E6%88%8F%E5%A4%AA%E6%B7%B1%20%E4%BC%B4%E5%A5%8F.m4a'
+];
+var currentSongIndex = 0;
+
+function playMusic(index) {
+    currentSongIndex = index;
+    audioPlayer.src = playlist[currentSongIndex];
+    audioPlayer.play();
+}
+
+function togglePlayPause() {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+    } else {
+        audioPlayer.pause();
+    }
+}
+
+function adjustVolume(volume) {
+    audioPlayer.volume = volume;
+}
+
+function handleFileUpload(files) {
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const url = URL.createObjectURL(file);
+        const fileName = file.name;
+
+        addToPlaylist(fileName, url);
+    }
+}
+
+function addToPlaylist(name, url) {
+    const newButton = document.createElement('div');
+    newButton.classList.add('music-button');
+    newButton.textContent = name;
+    newButton.addEventListener('click', function() {
+        playCustomMusic(url);
+    });
+
+    musicButtons.appendChild(newButton); 
+
+    playlist.push(url);
+}
+
+function playCustomMusic(url) {
+    currentSongIndex = playlist.indexOf(url); 
+    audioPlayer.src = url;
+    audioPlayer.play();
+}
+
+audioPlayer.addEventListener('timeupdate', function() {
+    var currentTime = audioPlayer.currentTime;
+    var duration = audioPlayer.duration;
+    var progressPercent = (currentTime / duration) * 100;
+    progressBar.style.width = progressPercent + '%';
+
+    var minutes = Math.floor(currentTime / 60);
+    var seconds = Math.floor(currentTime % 60);
+    var formattedTime = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+    if (!isNaN(audioPlayer.duration)) {
+        var totalMinutes = Math.floor(duration / 60);
+        var totalSeconds = Math.floor(duration % 60);
+        var formattedDuration = totalMinutes + ':' + (totalSeconds < 10 ? '0' : '') + totalSeconds;
+
+        currentTimeSpan.textContent = formattedTime;
+        durationSpan.textContent = formattedDuration;
+    } else {
+        currentTimeSpan.textContent = formattedTime;
+        durationSpan.textContent = "0:00";
+    }
+});
+
+function seek(event) {
+    const seekTime = (event.offsetX / progressBarContainer.offsetWidth) * audioPlayer.duration;
+    audioPlayer.currentTime = seekTime;
+    progressBar.style.width = (event.offsetX / progressBarContainer.offsetWidth) * 100 + '%';
+}
+
+audioPlayer.addEventListener('ended', function() {
+    currentSongIndex++;
+    if (currentSongIndex >= playlist.length) {
+        currentSongIndex = 0; 
+    }
+    playMusic(currentSongIndex);
+});
+
+function toggleFullscreen() {
+    var element = document.documentElement;
+    if (!document.fullscreenElement) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { 
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { 
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { 
+            element.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { 
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { 
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { 
+            document.msExitFullscreen();
+        }
+    }
+}
+
+function resetInactivityTimeout() {
+    clearTimeout(inactivityTimeout);
+    showControls();
+    document.body.classList.remove('hide-cursor');
+    inactivityTimeout = setTimeout(hideControls, 5000); 
+}
+
+function hideControls() {
+    musicButtons.classList.add('hidden');
+    audioControls.classList.add('hidden');
+    document.body.classList.add('hide-cursor');
+}
+
+function showControls() {
+    musicButtons.classList.remove('hidden');
+    audioControls.classList.remove('hidden');
+}
+
+// Function to handle clicks outside of backgroundOptions
+document.addEventListener('click', function(event) {
+    const target = event.target;
+    if (target !== backgroundOptions && !backgroundOptions.contains(target) &&
+        target !== document.getElementById('toggle-background-options')) {
+        backgroundOptions.style.opacity = 0;
+        setTimeout(function() {
+            backgroundOptions.style.display = 'none';
+        }, 500);
+    }
+});
+
+function toggleBackgroundOptions() {
+    if (backgroundOptions.style.display === 'none' || backgroundOptions.style.display === '') {
+        backgroundOptions.style.display = 'block';
+        setTimeout(function() {
+            backgroundOptions.style.opacity = 1;
+        }, 10); // 确保过渡效果能够触发
+    } else {
+        backgroundOptions.style.opacity = 0;
+        setTimeout(function() {
+            backgroundOptions.style.display = 'none';
+        }, 500); // 等待过渡效果完成
+    }
+}
+
+function changeBackground(url) {
+    background.style.transition = 'opacity 1s';
+    background.style.opacity = 0; 
+
+    setTimeout(function() {
+        background.style.backgroundImage = `url(${url})`;
+        background.style.opacity = 1;
+    }, 1000); 
+    toggleBackgroundOptions();
+}
+
+document.addEventListener('mousemove', resetInactivityTimeout);
+document.addEventListener('keypress', resetInactivityTimeout);
+
+resetInactivityTimeout();
+</script>
+
+<script>
+// 禁止 F12 和 Ctrl+Shift+I
+document.addEventListener('keydown', function(e) {
+    // 屏蔽 F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+    }
+    // 屏蔽 Ctrl+Shift+I
+    if ((e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+        e.preventDefault();
+    }
+    // 屏蔽 Ctrl+Shift+C
+    if ((e.ctrlKey && e.shiftKey && e.key === 'C') || (e.ctrlKey && e.shiftKey && e.keyCode === 67)) {
+        e.preventDefault();
+    }
+    // 屏蔽 Ctrl+Shift+J
+    if ((e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.shiftKey && e.keyCode === 74)) {
+        e.preventDefault();
+    }
+    // 屏蔽 Ctrl+U
+    if (e.ctrlKey && e.key === 'U' || e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+    }
+    // 屏蔽 F10
+    if (e.key === 'F10' || e.keyCode === 121) {
+        e.preventDefault();
+    }
+    // 屏蔽 F3
+    if (e.key === 'F3' || e.keyCode === 114) {
+        e.preventDefault();
+    }
+});
+</script>
+
+<script>
+var nowPlaying = document.getElementById('now-playing');
+
+function playMusic(index) {
+    currentSongIndex = index;
+    audioPlayer.src = playlist[currentSongIndex];
+    audioPlayer.play();
+    updateNowPlaying(index);
+}
+
+function playCustomMusic(url) {
+    currentSongIndex = playlist.indexOf(url);
+    audioPlayer.src = url;
+    audioPlayer.play();
+    updateNowPlaying(currentSongIndex);
+}
+
+function updateNowPlaying(index) {
+    var musicButtons = document.querySelectorAll('.music-button');
+    if (index >= 0 && index < musicButtons.length) {
+        nowPlaying.textContent = '音乐: ' + musicButtons[index].textContent;
+    } else {
+        nowPlaying.textContent = '音乐: 自定义音乐';
+    }
+}
+
+</script>
+
+<script>
+    document.addEventListener('contextmenu', function(event) {
+      event.preventDefault(); // 阻止默认的右键菜单弹出
+
+      var contextMenu = document.getElementById('context-menu');
+      contextMenu.style.display = 'block';
+
+      // 计算菜单应该显示的位置
+      var mouseX = event.pageX;
+      var mouseY = event.pageY;
+      var menuWidth = contextMenu.offsetWidth;
+      var menuHeight = contextMenu.offsetHeight;
+
+      // 调整菜单的位置，使其显示在鼠标上方
+      var windowWidth = window.innerWidth;
+      var windowHeight = window.innerHeight;
+      
+      var posX = mouseX + menuWidth > windowWidth ? mouseX - menuWidth : mouseX;
+      var posY = mouseY + menuHeight > windowHeight ? mouseY - menuHeight : mouseY;
+
+      contextMenu.style.left = posX + 'px';
+      contextMenu.style.top = posY + 'px';
+
+      // 添加一个短暂的延迟以确保 CSS 过渡效果生效
+      setTimeout(function() {
+        contextMenu.classList.add('visible');
+      }, 10);
+
+      document.addEventListener('click', function hideContextMenu() {
+        contextMenu.classList.remove('visible');
+        document.removeEventListener('click', hideContextMenu); // 移除事件监听器
+        setTimeout(function() {
+          contextMenu.style.display = 'none'; // 完全移除菜单
+        }, 300); // 延迟一段时间，确保动画效果完成
+      }, { once: true });
+    });
+
+    // 点击菜单项时的处理
+    document.getElementById('menu-item-1').addEventListener('click', function(event) {
+      event.stopPropagation(); // 阻止事件继续传播，防止关闭菜单
+
+      window.open('https://forms.gle/Sz4TRBtoWme4Yj4a6'); // 打开指定链接
+      var contextMenu = document.getElementById('context-menu');
+      contextMenu.classList.remove('visible'); // 隐藏菜单
+      setTimeout(function() {
+        contextMenu.style.display = 'none'; // 完全移除菜单
+      }, 300); // 延迟一段时间，确保动画效果完成
+    });
+</script>
+
+    <script>
+function toggleEffect() {
+    const background = document.getElementById('background');
+
+    // 切换背景效果
+    if (background.classList.contains('shake')) {
+        // 如果当前是震动效果，则切换到放大缩小效果
+        background.classList.remove('shake');
+        background.classList.add('zoom');
+    } else {
+        // 如果当前是放大缩小效果，则切换到震动效果
+        background.classList.remove('zoom');
+        background.classList.add('shake');
+    }
+}
+
+    </script>
+
+    <script>
+        function updateNetworkStatus() {
+            const statusDiv = document.getElementById('network-status');
+            if (navigator.onLine) {
+                statusDiv.style.display = 'none';
+            } else {
+                statusDiv.style.display = 'block';
+            }
+        }
+
+        window.addEventListener('load', updateNetworkStatus);
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+    </script>
+
+<script>
+// Function to toggle video background options
+function toggleVideoOptions() {
+    const videoOptions = document.getElementById('video-options');
+    if (videoOptions.style.display === 'none' || videoOptions.style.display === '') {
+        videoOptions.style.display = 'block';
+        setTimeout(function() {
+            videoOptions.style.opacity = 1;
+        }, 10);
+        document.addEventListener('click', closeVideoOptionsOnClickOutside);
+    } else {
+        videoOptions.style.opacity = 0;
+        setTimeout(function() {
+            videoOptions.style.display = 'none';
+        }, 500);
+        document.removeEventListener('click', closeVideoOptionsOnClickOutside);
+    }
+}
+
+// Function to close video options if clicked outside
+function closeVideoOptionsOnClickOutside(event) {
+    const videoOptions = document.getElementById('video-options');
+    const toggleButton = document.getElementById('toggle-video-options');
+    if (!videoOptions.contains(event.target) && !toggleButton.contains(event.target)) {
+        videoOptions.style.opacity = 0;
+        setTimeout(function() {
+            videoOptions.style.display = 'none';
+        }, 500);
+        document.removeEventListener('click', closeVideoOptionsOnClickOutside);
+    }
+}
+
+// Function to change video background
+function changeVideoBackground(videoUrl) {
+    const videoBackground = document.getElementById('video-background');
+    const background = document.getElementById('background');
+
+    videoBackground.src = videoUrl;
+    videoBackground.style.display = 'block';
+    videoBackground.play();
+
+    if (background) {
+        background.style.opacity = 0;
+        setTimeout(function() {
+            background.style.display = 'none';
+            background.style.opacity = 1;
+        }, 1000);
+    }
+
+    toggleVideoOptions();
+}
+
+// Function to change image background
+function changeImageBackground(imageUrl) {
+    const videoBackground = document.getElementById('video-background');
+    const background = document.getElementById('background');
+
+    if (videoBackground) {
+        videoBackground.pause();
+        videoBackground.style.display = 'none';
+    }
+
+    if (background) {
+        background.style.backgroundImage = `url(${imageUrl})`;
+        background.style.display = 'block';
+        background.style.opacity = 1;
+    }
+
+    toggleImageOptions();
+}
+</script>
+
+<script>
+function toggleBackgroundOptions() {
+    const backgroundOptions = document.getElementById('background-options');
+    if (backgroundOptions.style.display === 'none' || backgroundOptions.style.display === '') {
+        backgroundOptions.style.display = 'block';
+        setTimeout(function() {
+            backgroundOptions.style.opacity = 1;
+        }, 10); // Ensure transition effect can trigger
+    } else {
+        backgroundOptions.style.opacity = 0;
+        setTimeout(function() {
+            backgroundOptions.style.display = 'none';
+        }, 500); // Wait for transition effect to complete
+    }
+}
+
+document.addEventListener('click', function(event) {
+    const backgroundOptions = document.getElementById('background-options');
+    const target = event.target;
+    if (target !== backgroundOptions && !backgroundOptions.contains(target) &&
+        target !== document.getElementById('toggle-background-options')) {
+        backgroundOptions.style.opacity = 0;
+        setTimeout(function() {
+            backgroundOptions.style.display = 'none';
+        }, 500);
+    }
+});
+
+function changeBackground(url, isVideo = false) {
+    const videoBackground = document.getElementById('video-background');
+    const background = document.getElementById('background');
+
+    if (isVideo) {
+        videoBackground.src = url;
+        videoBackground.style.display = 'block';
+        videoBackground.play();
+        background.style.opacity = 0;
+        setTimeout(function() {
+            background.style.display = 'none';
+            background.style.opacity = 1;
+        }, 1000);
+    } else {
+        videoBackground.pause();
+        videoBackground.style.display = 'none';
+        background.style.transition = 'opacity 1s';
+        background.style.opacity = 0;
+        setTimeout(function() {
+            background.style.backgroundImage = `url(${url})`;
+            background.style.display = 'block';
+            background.style.opacity = 1;
+        }, 1000);
+    }
+    toggleBackgroundOptions();
+}
+
+</script>
+
+<script>
+var audioPlayer = document.getElementById('audio-player');
+var playPauseButton = document.getElementById('play-pause-button');
+var isPlaying = false;
+
+function togglePlayPause() {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseButton.textContent = '❚❚';
+        isPlaying = true;
+    } else {
+        audioPlayer.pause();
+        playPauseButton.textContent = '▶';
+        isPlaying = false;
+    }
+}
+
+// 监听键盘事件
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space') {
+        event.preventDefault(); // 防止空格键滚动页面
+        if (audioPlayer.src) {
+            togglePlayPause();
+        }
+    }
+});
+
+// 确保在页面加载时能正确处理音频的状态
+audioPlayer.addEventListener('play', function() {
+    playPauseButton.textContent = '❚❚';
+    isPlaying = true;
+});
+
+audioPlayer.addEventListener('pause', function() {
+    playPauseButton.textContent = '▶';
+    isPlaying = false;
+});
+</script>
+
+    <script>
+        // 将上面的JavaScript代码放在这里
+        function checkOrientation() {
+            var alertBox = document.getElementById('landscape-alert');
+
+            // 判断是否为手机并且是竖屏模式
+            if (window.innerHeight > window.innerWidth && /Mobi|Android/i.test(navigator.userAgent)) {
+                alertBox.style.display = 'flex';
+            } else {
+                alertBox.style.display = 'none';
+            }
+        }
+
+        // 监听设备方向变化事件
+        window.addEventListener('resize', checkOrientation);
+
+        // 页面加载时立即检查一次
+        checkOrientation();
+    </script>
+
+</body>
+</html>
